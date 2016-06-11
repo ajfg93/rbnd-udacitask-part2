@@ -1,6 +1,6 @@
 class TodoItem
   include Listable
-  attr_reader :description, :due, :priority
+  attr_reader :description, :due, :priority, :item_type
   @@priorities = ["high","medium","low",nil]
   def initialize(description, options={})
     @description = description
@@ -9,6 +9,7 @@ class TodoItem
     if !@@priorities.include?(@priority)
       raise UdaciListErrors::InvalidPriorityValueError, "We don't have such a '#{@priority}' priority option"
     end
+    @item_type = "todo"
   end
 
   def details

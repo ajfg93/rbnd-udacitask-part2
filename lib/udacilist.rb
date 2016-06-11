@@ -24,12 +24,24 @@ class UdaciList
     @items.delete_at(index - 1)
     end
   end
+
+  def delete_some_items(*indexes_delete)
+      items_delete = []
+      indexes_delete = indexes_delete.map {|index_delete| index_delete -= 1}
+      indexes_delete.each do |index_delete|
+        items_delete << @items[index_delete]
+      end
+      items_delete.each do |item_delete|
+        @items.delete(item_delete)
+      end
+  end
+
   def all
     puts "-" * @title.length
     puts @title
     puts "-" * @title.length
     @items.each_with_index do |item, position|
-      puts "#{position + 1}) #{item.details}"
+      puts "#{position + 1}) [#{item.item_type}] #{item.details}"
     end
   end
 end
