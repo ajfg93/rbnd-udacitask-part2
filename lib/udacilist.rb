@@ -36,6 +36,19 @@ class UdaciList
       end
   end
 
+  def change_event_priority(index, new_priority)
+    if index >= @items.length
+       raise UdaciListErrors::IndexExceedsListSizeError, "Item #{index} doesn't exist"
+    end
+    if @items[index-1].item_type != "todo"
+       raise UdaciListErrors::InvalidItemTypeError, "#{@items[index-1]} is a #{@items[index-1].item_type} item, not a 'todo' item"
+    end
+    if !TodoItem.priorities.include?(new_priority)
+      raise UdaciListErrors::InvalidPriorityValueError, "We don't have such a '#{new_priority}' priority option"
+    end
+    @items[index-1].priority = new_priority
+  end
+
   def all
     puts "-" * @title.length
     puts @title
